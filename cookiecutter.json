@@ -1,0 +1,10 @@
+{
+	"full_name": "Tom Savage",
+	"email": "tcsavage@gmail.com",
+	"github_username": "tcsavage",
+	"project_name": "Cookiecutter C++",
+	"repo_name": "cookiecutter-cpp",
+	"project_short_description": "My opinionated C++ project template.",
+	"year": "2018",
+	"version": "0.1.0"
+}

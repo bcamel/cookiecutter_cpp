@@ -1,0 +1,8 @@
+---
+Checks:          'cppcoreguidelines-*'
+WarningsAsErrors: ''
+HeaderFilterRegex: ''
+AnalyzeTemporaryDtors: false
+FormatStyle:     none
+User:            tcsavage
+CheckOptions: []
