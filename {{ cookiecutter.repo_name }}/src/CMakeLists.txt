@@ -6,6 +6,7 @@ add_library({{ cookiecutter.repo_name }}::{{ cookiecutter.repo_name }} ALIAS lib
 target_include_directories(
     lib{{ cookiecutter.repo_name }}
     PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    ${CMAKE_SOURCE_DIR}/include
     )
 target_link_libraries(lib{{ cookiecutter.repo_name }}
     PUBLIC

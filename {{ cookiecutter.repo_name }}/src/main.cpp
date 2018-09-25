@@ -1,4 +1,4 @@
-#include "{{ cookiecutter.repo_name }}/logger.h"
+#include <{{ cookiecutter.repo_name }}/logger.h>
 
 int main(int argc, const char *argv[]) {
   (void)(argc);

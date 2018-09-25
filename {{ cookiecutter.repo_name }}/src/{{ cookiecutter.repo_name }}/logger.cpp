@@ -1,7 +1,6 @@
-#include "logger.h"
-
 #include <iostream>
 #include <spdlog/sinks/stdout_color_sinks.h>
+#include <{{ cookiecutter.repo_name }}/logger.h>
 
 namespace {{ cookiecutter.repo_name }} {
 
