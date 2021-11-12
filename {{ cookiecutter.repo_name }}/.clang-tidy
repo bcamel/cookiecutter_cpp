@@ -1,8 +1,8 @@
 ---
-Checks:          'cppcoreguidelines-*'
+Checks: 'cppcoreguidelines-*'
 WarningsAsErrors: ''
 HeaderFilterRegex: ''
 AnalyzeTemporaryDtors: false
-FormatStyle:     none
-User:            tcsavage
+FormatStyle: none
+User: bcamel
 CheckOptions: []
