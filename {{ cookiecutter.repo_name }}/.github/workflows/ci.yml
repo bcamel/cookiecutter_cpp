@@ -23,25 +23,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Install Catch2 (Linux + MacOS)
-      if: runner.os != 'Windows'
-      run: |
-        git clone -b v$CATCH2_VERSION https://github.com/catchorg/Catch2.git
-        cd Catch2
-        mkdir build
-        cd build
-        cmake -DBUILD_TESTING=OFF  ..
-        sudo cmake --build . --target install
+    - name: Install Conan
+      id: conan
+      uses: turtlebrowser/get-conan@main
 
-    - name: Install Catch2 (Windows)
-      if: runner.os == 'Windows'
-      run: |
-        git clone -b v$Env:CATCH2_VERSION https://github.com/catchorg/Catch2.git
-        cd Catch2
-        mkdir build
-        cd build
-        cmake -DBUILD_TESTING=OFF  ..
-        cmake --build . --target install
+    - name: Conan version
+      run: echo "${{ "{{steps.conan.outputs.version}}" }}"
 
     - name: make build directory
       run: cmake -E make_directory ${{ "{{runner.workspace}}" }}/build
@@ -49,45 +36,7 @@ jobs:
     - name: configure cmake
       shell: bash
       working-directory: ${{ "{{runner.workspace}}" }}/build
-      run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=Debug -DBUILD_DOCS=OFF
-
-    - name: build
-      shell: bash
-      working-directory: ${{ "{{runner.workspace}}" }}/build
-      run: cmake --build .
-
-    - name: run tests
-      shell: bash
-      working-directory: ${{ "{{runner.workspace}}" }}/build
-      run: ctest
-
-    - name: Install Catch2 (Linux + MacOS)
-      if: runner.os != 'Windows'
-      run: |
-        git clone -b v$CATCH2_VERSION https://github.com/catchorg/Catch2.git
-        cd Catch2
-        mkdir build
-        cd build
-        cmake -DBUILD_TESTING=OFF  ..
-        sudo cmake --build . --target install
-
-    - name: Install Catch2 (Windows)
-      if: runner.os == 'Windows'
-      run: |
-        git clone -b v$Env:CATCH2_VERSION https://github.com/catchorg/Catch2.git
-        cd Catch2
-        mkdir build
-        cd build
-        cmake -DBUILD_TESTING=OFF  ..
-        cmake --build . --target install
-
-    - name: make build directory
-      run: cmake -E make_directory ${{ "{{runner.workspace}}" }}/build
-
-    - name: configure cmake
-      shell: bash
-      working-directory: ${{ "{{runner.workspace}}" }}/build
-      run: cmake $GITHUB_WORKSPACE -DCMAKE_CXX_FLAGS="--coverage" -DBUILD_DOCS=OFF
+      run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=Debug
 
     - name: build
       shell: bash
