@@ -1,37 +1,38 @@
 cmake_minimum_required(VERSION 3.12)
 
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_BINARY_DIR}")
-list(APPEND CMAKE_PREFIX_PATH "${CMAKE_BINARY_DIR}")
-
 project({{ cookiecutter.repo_name }}
     VERSION {{ cookiecutter.project_version }}
     LANGUAGES C CXX
     DESCRIPTION "{{ cookiecutter.project_short_description }}"
     )
 
-# Initialize some default paths
+# Add custom cmake includes
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+# Add cmake includes fetched by package manager
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_BINARY_DIR}")    
+
 include(GNUInstallDirs)
+include(ClangTidy)
+include(conan)
 
 # Define the minimum C++ standard that is required
-set(CMAKE_CXX_STANDARD {{ cookiecutter.cxx_minimum_standard }})
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+if (NOT DEFINED CMAKE_CXX_STANDARD)
+    set(CMAKE_CXX_STANDARD {{ cookiecutter.cxx_minimum_standard }})
+elseif(CMAKE_CXX_STANDARD LESS {{ cookiecutter.cxx_minimum_standard }})
+    message(FATAL_ERROR "Please specify CMAKE_CXX_STANDARD of {{ cookiecutter.cxx_minimum_standard }} or higher")
+endif()
+
+if (NOT DEFINED CMAKE_CXX_STANDARD_REQUIRED)
+    set(CMAKE_CXX_STANDARD_REQUIRED ON)
+endif()
+
+# Avoid use of compiler language extensions
+if (NOT DEFINED CMAKE_CXX_EXTENSIONS)
+    set(CMAKE_CXX_EXTENSIONS FALSE)
+endif()
 
 if(NOT CMAKE_CONFIGURATION_TYPES)
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
-endif()
-
-include(ClangTidy)
-
-if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/cmake/conan.cmake")
-  message(STATUS "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
-  file(DOWNLOAD "https://raw.githubusercontent.com/conan-io/cmake-conan/develop/conan.cmake"
-                "${CMAKE_BINARY_DIR}/conan.cmake"
-                TLS_VERIFY ON)
-  include(${CMAKE_BINARY_DIR}/conan.cmake)
-else()
-    message(STATUS "Found conan.cmake in ${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-    include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/conan.cmake")
 endif()
 
 conan_cmake_autodetect(settings)
