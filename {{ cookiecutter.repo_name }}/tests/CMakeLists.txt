@@ -1,5 +1,6 @@
 find_package(Catch2 2.3.0 REQUIRED)
 include(Catch)
+include(CTest)
 
 add_library({{ cookiecutter.repo_name }}-test-lib STATIC test-main.cpp
 test.cpp
