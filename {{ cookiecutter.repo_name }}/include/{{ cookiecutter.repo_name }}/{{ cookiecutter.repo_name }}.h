@@ -1,5 +1,6 @@
 #pragma once
 
 // Public API.
-namespace {{ cookiecutter.repo_name }} {
+namespace {{ cookiecutter.repo_name }}
+{
 }

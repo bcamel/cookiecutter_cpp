@@ -5,6 +5,6 @@
 namespace {{ cookiecutter.repo_name }}
 {
 
-std::shared_ptr<spdlog::logger> getLogger(const char *name);
+std::shared_ptr<spdlog::logger> getLogger(const char* name);
 
 }
