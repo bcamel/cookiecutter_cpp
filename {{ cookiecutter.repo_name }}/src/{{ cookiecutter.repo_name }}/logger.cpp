@@ -5,16 +5,13 @@
 namespace {{ cookiecutter.repo_name }}
 {
 
-std::shared_ptr<spdlog::logger> getLogger(const char* name)
+auto getLogger(const char* name) -> std::shared_ptr<spdlog::logger>
 {
     if (auto logger = spdlog::get(name))
     {
         return logger;
     }
-    else
-    {
-        return spdlog::stdout_color_mt(name);
-    }
+    return spdlog::stdout_color_mt(name);
 }
 
 } // namespace {{ cookiecutter.repo_name }}
