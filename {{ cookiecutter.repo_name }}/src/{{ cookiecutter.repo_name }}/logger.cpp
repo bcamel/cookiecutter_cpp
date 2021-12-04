@@ -1,5 +1,6 @@
-#include "{{ cookiecutter.repo_name }}/logger.h"
-#include <spdlog/sinks/stdout_color_sinks-inl.h>
+#include "{{ cookiecutter.repo_name }}/logger.hpp"
+
+#include "spdlog/sinks/stdout_color_sinks-inl.h"
 
 namespace {{ cookiecutter.repo_name }}
 {
