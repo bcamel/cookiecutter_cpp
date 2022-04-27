@@ -12,7 +12,6 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_BINARY_DIR}")    
 
 include(GNUInstallDirs)
-include(ClangTidy)
 include(conan)
 
 # Define the minimum C++ standard that is required
@@ -34,6 +33,8 @@ endif()
 if(NOT CMAKE_CONFIGURATION_TYPES)
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
 endif()
+
+set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
 
 conan_cmake_autodetect(settings)
 
@@ -57,6 +58,7 @@ find_package(spdlog REQUIRED)
 find_package(Catch2 REQUIRED)
 
 if(NOT MSVC)
+    set(CMAKE_CXX_CLANG_TIDY "clang-tidy")
     add_compile_options(-Wall -Wextra)
     if(PROJECT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
         add_compile_options(-Werror)

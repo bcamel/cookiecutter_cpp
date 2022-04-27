@@ -20,6 +20,3 @@ target_link_libraries({{ cookiecutter.repo_name }} PRIVATE
 
 set_property(TARGET lib{{ cookiecutter.repo_name }} PROPERTY CXX_STANDARD 17)
 set_property(TARGET {{ cookiecutter.repo_name }} PROPERTY CXX_STANDARD 17)
-
-enable_clang_tidy(lib{{ cookiecutter.repo_name }})
-enable_clang_tidy({{ cookiecutter.repo_name }})
